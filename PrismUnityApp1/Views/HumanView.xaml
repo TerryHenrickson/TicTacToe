@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="TicTacToe.Views.HumanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"  
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:TicTacToe.ViewModels"
+             d:DataContext="{d:DesignInstance viewModels:HumanViewModel}"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="Red" Text="{Binding Path=Name}"/>
+            <Button Grid.Column="2" Content="x" Command="{Binding Path=RemovePlayerFromSideCommand}"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="1" Content="Playing as"/>
+            <ComboBox Grid.Column="2" Width="80" ItemsSource="{Binding Path=MarkOptions}" SelectedIndex="{Binding Path=SelectedMark}"/>
+        </Grid>
+
+
+        <Grid Grid.Row="4" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" BorderThickness="0,0,3,3" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.TopLeft}" Command="{Binding PlayMarkCommand}" CommandParameter="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" BorderThickness="3,0,3,3" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.TopMiddle}" Command="{Binding PlayMarkCommand}" CommandParameter="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="2" BorderThickness="3,0,0,3" BorderBrush="Black">
+                <Button  Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.TopRight}" Command="{Binding PlayMarkCommand}" CommandParameter="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="0,3,3,3" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.MiddleLeft}" Command="{Binding PlayMarkCommand}" CommandParameter="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="3,3,3,3" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.MiddleMiddle}" Command="{Binding PlayMarkCommand}" CommandParameter="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="2" BorderThickness="3,3,0,3" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.MiddleRight}" Command="{Binding PlayMarkCommand}" CommandParameter="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="0" BorderThickness="0,3,3,0" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.BottomLeft}" Command="{Binding PlayMarkCommand}" CommandParameter="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+             </Border>
+            <Border Grid.Row="2" Grid.Column="1"  BorderThickness="3,3,3,0" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.BottomMiddle}" Command="{Binding PlayMarkCommand}" CommandParameter="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="2"  BorderThickness="3,3,0,0" BorderBrush="Black">
+                <Button Background="Ivory" Width="1000" Height="1000" Content="{Binding Path=Board.BottomRight}" Command="{Binding PlayMarkCommand}" CommandParameter="8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="80"/>
+            </Border>
+           
+        </Grid>
+
+
+        <Grid Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" Opacity="0.9" Visibility="{Binding Path=WinVisibility}">
+            <Border BorderThickness="3" BorderBrush="Red" >
+                <Label FontSize="50" Content="You Won!" FontWeight="ExtraBold" Foreground="Red"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" Opacity="0.8" Visibility="{Binding Path=LossVisibility}">
+            <Border BorderThickness="3" BorderBrush="Red" >
+                <Label FontSize="50" Content="You Lost!" FontWeight="ExtraBold" Foreground="Red"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Background="WhiteSmoke" Opacity="0.9" Visibility="{Binding Path=DrawVisibility}">
+            <Border BorderThickness="3" BorderBrush="Red" >
+                <Label FontSize="50" Content="Draw!" FontWeight="ExtraBold" Foreground="Red"/>
+            </Border>
+        </Grid>
+        
+        <Grid Grid.Row="5">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Wins"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Wins}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Draws"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Draws}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Losses"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=Losses}"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>
